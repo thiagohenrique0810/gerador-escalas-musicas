@@ -62,5 +62,20 @@
   "scale_harmonic_minor": "Escala Menor Harmônica",
   "scale_harmonic_minor_desc": "Escala menor harmônica (T ST T T ST T½ ST)",
   
-  "select_instrument_and_scale": "Selecione um instrumento e uma escala para visualizar"
+  "select_instrument_and_scale": "Selecione um instrumento e uma escala para visualizar",
+
+  "instrumentSettings": {
+    "title": "Configurações de Instrumento",
+    "currentTuning": "Afinação Atual",
+    "customTunings": "Afinações Personalizadas",
+    "addCustomTuning": "Adicionar Afinação Personalizada",
+    "tuningName": "Nome da Afinação",
+    "tuningNamePlaceholder": "Ex: Drop D, DADGAD",
+    "strings": "Cordas",
+    "notePlaceholder": "Nota",
+    "add": "Adicionar",
+    "use": "Usar",
+    "remove": "Remover",
+    "reset": "Resetar para Padrão"
+  }
 } 

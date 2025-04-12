@@ -12,6 +12,7 @@ import ScaleSelection from '@pages/ScaleSelection';
 import Metronome from '@pages/Metronome';
 import Settings from '@pages/Settings';
 import Profile from '@pages/Profile';
+import Exercises from '@pages/Exercises';
 import { loadUserData } from '@store/slices/userSlice';
 import { RootState } from '@store/index';
 
@@ -34,6 +35,7 @@ const AppContent: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/instrumentos" element={<InstrumentSelection />} />
           <Route path="/escalas" element={<ScaleSelection />} />
+          <Route path="/exercicios" element={<Exercises />} />
           <Route path="/metronomo" element={<Metronome />} />
           <Route path="/configuracoes" element={<Settings />} />
           <Route path="/perfil" element={<Profile />} />

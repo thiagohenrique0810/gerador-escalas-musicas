@@ -1,0 +1,39 @@
+{
+  "interactivity": {
+    "title": "Controles de Interatividade",
+    "audio": "Áudio",
+    "enabled": "Ativado",
+    "disabled": "Desativado",
+    "volume": "Volume",
+    "playTestNote": "Tocar Nota de Teste",
+    "noteRecognition": "Reconhecimento de Notas",
+    "noteRecognitionHelp": "Toque em uma nota no seu instrumento para ver se ela é reconhecida corretamente."
+  },
+  "exercises": {
+    "title": "Exercícios de Escalas",
+    "availableExercises": "Exercícios Disponíveis",
+    "difficulty": "Dificuldade",
+    "allDifficulties": "Todas as Dificuldades",
+    "beginner": "Iniciante",
+    "intermediate": "Intermediário",
+    "advanced": "Avançado",
+    "type": "Tipo",
+    "allTypes": "Todos os Tipos",
+    "ascending": "Subida",
+    "descending": "Descida",
+    "random": "Aleatório",
+    "currentNote": "Nota Atual",
+    "progress": "Progresso",
+    "score": "Pontuação",
+    "stop": "Parar",
+    "reset": "Reiniciar",
+    "correctNote": "Nota correta!",
+    "incorrectNote": "Nota incorreta. Tente novamente."
+  },
+  "menu_instruments": "Instrumentos",
+  "menu_scales": "Escalas",
+  "menu_exercises": "Exercícios",
+  "menu_visualization": "Visualização",
+  "menu_metronome": "Metrônomo",
+  "menu_settings": "Configurações"
+} 

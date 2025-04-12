@@ -12,6 +12,7 @@ const Sidebar: React.FC = () => {
   const menuItems = [
     { path: '/', label: t('menu_instruments'), icon: '🎸' },
     { path: '/escalas', label: t('menu_scales'), icon: '🎵' },
+    { path: '/exercicios', label: t('menu_exercises'), icon: '📝' },
     { path: '/visualizacao', label: t('menu_visualization'), icon: '📊' },
     { path: '/metronomo', label: t('menu_metronome'), icon: '⏱️' },
     { path: '/configuracoes', label: t('menu_settings'), icon: '⚙️' },

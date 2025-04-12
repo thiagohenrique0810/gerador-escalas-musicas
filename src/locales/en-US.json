@@ -62,5 +62,20 @@
   "scale_harmonic_minor": "Harmonic Minor Scale",
   "scale_harmonic_minor_desc": "Harmonic minor scale (W H W W H W½ H)",
   
-  "select_instrument_and_scale": "Select an instrument and a scale to visualize"
+  "select_instrument_and_scale": "Select an instrument and a scale to visualize",
+
+  "instrumentSettings": {
+    "title": "Instrument Settings",
+    "currentTuning": "Current Tuning",
+    "customTunings": "Custom Tunings",
+    "addCustomTuning": "Add Custom Tuning",
+    "tuningName": "Tuning Name",
+    "tuningNamePlaceholder": "Ex: Drop D, DADGAD",
+    "strings": "Strings",
+    "notePlaceholder": "Note",
+    "add": "Add",
+    "use": "Use",
+    "remove": "Remove",
+    "reset": "Reset to Default"
+  }
 } 

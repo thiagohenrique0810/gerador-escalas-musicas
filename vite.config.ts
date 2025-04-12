@@ -10,12 +10,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
       '@pages': path.resolve(__dirname, './src/pages'),
-      '@assets': path.resolve(__dirname, './src/assets'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
       '@store': path.resolve(__dirname, './src/store'),
-      '@utils': path.resolve(__dirname, './src/utils'),
+      '@services': path.resolve(__dirname, './src/services'),
       '@types': path.resolve(__dirname, './src/types'),
-      '@styles': path.resolve(__dirname, './src/styles'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@i18n': path.resolve(__dirname, './src/i18n'),
     },
   },
   test: {
@@ -30,5 +30,30 @@ export default defineConfig({
         'src/test/setup.ts',
       ],
     },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom', 'react-router-dom', '@reduxjs/toolkit', 'react-redux'],
+          'i18n': ['i18next', 'react-i18next'],
+          'audio': ['tone'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
+  server: {
+    port: 3000,
+    open: true,
   },
 }); 

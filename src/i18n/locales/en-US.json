@@ -1,0 +1,39 @@
+{
+  "interactivity": {
+    "title": "Interactivity Controls",
+    "audio": "Audio",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "volume": "Volume",
+    "playTestNote": "Play Test Note",
+    "noteRecognition": "Note Recognition",
+    "noteRecognitionHelp": "Play a note on your instrument to see if it's correctly recognized."
+  },
+  "exercises": {
+    "title": "Scale Exercises",
+    "availableExercises": "Available Exercises",
+    "difficulty": "Difficulty",
+    "allDifficulties": "All Difficulties",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "type": "Type",
+    "allTypes": "All Types",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "random": "Random",
+    "currentNote": "Current Note",
+    "progress": "Progress",
+    "score": "Score",
+    "stop": "Stop",
+    "reset": "Reset",
+    "correctNote": "Correct note!",
+    "incorrectNote": "Incorrect note. Try again."
+  },
+  "menu_instruments": "Instruments",
+  "menu_scales": "Scales",
+  "menu_exercises": "Exercises",
+  "menu_visualization": "Visualization",
+  "menu_metronome": "Metronome",
+  "menu_settings": "Settings"
+} 
