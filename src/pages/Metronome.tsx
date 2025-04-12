@@ -1,80 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@store';
-import { setMetronomeBpm, setMetronomeTimeSignature } from '@store/slices/settingsSlice';
+import { RootState } from '../store';
+import { setMetronomeBpm, setMetronomeTimeSignature } from '../store/slices/settingsSlice';
 
 const Metronome: React.FC = () => {
   const dispatch = useDispatch();
   const { metronomeBpm, metronomeTimeSignature } = useSelector(
     (state: RootState) => state.settings
   );
+  
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
-  const [nextNoteTime, setNextNoteTime] = useState(0);
-  const [timerID, setTimerID] = useState<number | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const context = new (window.AudioContext || (window as any).webkitAudioContext)();
-    setAudioContext(context);
+    // Inicializa o contexto de áudio
+    audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+
     return () => {
-      if (timerID) {
-        window.clearTimeout(timerID);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
-      context.close();
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
     };
   }, []);
 
-  const scheduleNote = (time: number) => {
-    if (!audioContext) return;
+  const playClick = () => {
+    if (!audioContextRef.current) return;
 
-    const osc = audioContext.createOscillator();
-    const envelope = audioContext.createGain();
+    const time = audioContextRef.current.currentTime;
+    
+    const oscillator = audioContextRef.current.createOscillator();
+    const gainNode = audioContextRef.current.createGain();
 
-    osc.frequency.value = 1000;
-    envelope.gain.value = 1;
-    envelope.gain.exponentialRampToValueAtTime(1, time + 0.001);
-    envelope.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
+    // Configura o oscilador
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContextRef.current.destination);
+    oscillator.frequency.setValueAtTime(1000, time);
 
-    osc.connect(envelope);
-    envelope.connect(audioContext.destination);
+    // Configura o envelope do som
+    gainNode.gain.setValueAtTime(0, time);
+    gainNode.gain.linearRampToValueAtTime(1, time + 0.001);
+    gainNode.gain.linearRampToValueAtTime(0, time + 0.05);
 
-    osc.start(time);
-    osc.stop(time + 0.03);
-  };
-
-  const scheduler = () => {
-    if (!audioContext) return;
-
-    while (nextNoteTime < audioContext.currentTime + 0.1) {
-      scheduleNote(nextNoteTime);
-      const secondsPerBeat = 60.0 / metronomeBpm;
-      const [beats, unit] = metronomeTimeSignature.split('/').map(Number);
-      setNextNoteTime(nextNoteTime + (secondsPerBeat / (beats / unit)));
-    }
-
-    const timer = window.setTimeout(scheduler, 25.0);
-    setTimerID(timer);
+    // Toca o som
+    oscillator.start(time);
+    oscillator.stop(time + 0.05);
   };
 
   const startMetronome = () => {
-    if (!audioContext) return;
+    if (!audioContextRef.current) return;
 
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
+    // Garante que o contexto de áudio está ativo
+    if (audioContextRef.current.state === 'suspended') {
+      audioContextRef.current.resume();
     }
 
     setIsPlaying(true);
-    setNextNoteTime(audioContext.currentTime);
-    scheduler();
+    playClick(); // Toca imediatamente ao iniciar
+
+    // Calcula o intervalo baseado no BPM
+    const interval = (60 / metronomeBpm) * 1000; // Converte BPM para milissegundos
+    intervalRef.current = window.setInterval(playClick, interval);
   };
 
   const stopMetronome = () => {
-    if (timerID) {
-      window.clearTimeout(timerID);
-      setTimerID(null);
-    }
     setIsPlaying(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   };
+
+  // Atualiza o intervalo quando o BPM muda
+  useEffect(() => {
+    if (isPlaying) {
+      stopMetronome();
+      startMetronome();
+    }
+  }, [metronomeBpm]);
 
   const handleBpmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newBpm = parseInt(e.target.value);
