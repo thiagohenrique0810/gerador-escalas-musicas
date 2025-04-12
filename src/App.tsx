@@ -1,5 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { 
+  BrowserRouter as Router, 
+  Routes, 
+  Route,
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Layout from './components/Layout';
@@ -11,20 +17,41 @@ import ScaleViewer from './pages/ScaleViewer';
 import Metronome from './pages/Metronome';
 import Settings from './pages/Settings';
 
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Layout><Home /></Layout>,
+    },
+    {
+      path: '/instrumentos',
+      element: <Layout><InstrumentSelection /></Layout>,
+    },
+    {
+      path: '/escalas',
+      element: <Layout><ScaleViewer /></Layout>,
+    },
+    {
+      path: '/metronomo',
+      element: <Layout><Metronome /></Layout>,
+    },
+    {
+      path: '/configuracoes',
+      element: <Layout><Settings /></Layout>,
+    },
+  ],
+  {
+    future: {
+      v7_startTransition: true,
+      v7_relativeSplatPath: true
+    },
+  }
+);
+
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/instrumentos" element={<InstrumentSelection />} />
-            <Route path="/escalas" element={<ScaleViewer />} />
-            <Route path="/metronomo" element={<Metronome />} />
-            <Route path="/configuracoes" element={<Settings />} />
-          </Routes>
-        </Layout>
-      </Router>
+      <RouterProvider router={router} />
     </Provider>
   );
 }

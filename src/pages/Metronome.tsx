@@ -49,7 +49,7 @@ const Metronome: React.FC = () => {
       scheduleNote(nextNoteTime);
       const secondsPerBeat = 60.0 / metronomeBpm;
       const [beats, unit] = metronomeTimeSignature.split('/').map(Number);
-      nextNoteTime += secondsPerBeat / (beats / unit);
+      setNextNoteTime(nextNoteTime + (secondsPerBeat / (beats / unit)));
     }
 
     const timer = window.setTimeout(scheduler, 25.0);
@@ -64,7 +64,7 @@ const Metronome: React.FC = () => {
     }
 
     setIsPlaying(true);
-    nextNoteTime = audioContext.currentTime;
+    setNextNoteTime(audioContext.currentTime);
     scheduler();
   };
 
