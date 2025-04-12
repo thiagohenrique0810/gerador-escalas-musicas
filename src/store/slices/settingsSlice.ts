@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SettingsState, Theme } from '../../types/settings';
 
 const initialState: SettingsState = {
-  metronomeBPM: 120,
-  timeSignature: '4/4',
-  theme: 'light',
+  metronomeBpm: 120,
+  metronomeTimeSignature: '4/4',
+  theme: 'system',
   language: 'pt-BR'
 };
 
@@ -12,20 +12,20 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    setMetronomeBPM: (state: SettingsState, action: PayloadAction<number>) => {
-      state.metronomeBPM = action.payload;
+    setMetronomeBpm: (state, action: PayloadAction<number>) => {
+      state.metronomeBpm = action.payload;
     },
-    setTimeSignature: (state: SettingsState, action: PayloadAction<string>) => {
-      state.timeSignature = action.payload;
+    setMetronomeTimeSignature: (state, action: PayloadAction<string>) => {
+      state.metronomeTimeSignature = action.payload;
     },
-    setTheme: (state: SettingsState, action: PayloadAction<Theme>) => {
+    setTheme: (state, action: PayloadAction<Theme>) => {
       state.theme = action.payload;
     },
-    setLanguage: (state: SettingsState, action: PayloadAction<string>) => {
+    setLanguage: (state, action: PayloadAction<string>) => {
       state.language = action.payload;
     }
   }
 });
 
-export const { setMetronomeBPM, setTimeSignature, setTheme, setLanguage } = settingsSlice.actions;
+export const { setMetronomeBpm, setMetronomeTimeSignature, setTheme, setLanguage } = settingsSlice.actions;
 export default settingsSlice.reducer; 

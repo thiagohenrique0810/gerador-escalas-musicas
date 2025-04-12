@@ -1,90 +1,85 @@
-🎵 Prompt de Aplicação: Plataforma Interativa de Ensino de Escalas Musicais 🎶
+# Gerador de Escalas Musicais
 
-Objetivo: Desenvolver uma aplicação interativa para ensino e treino de escalas musicais voltada a aprendizes de instrumentos como violão, guitarra, baixo e teclado/piano. A plataforma deve permitir personalização da experiência de aprendizagem e prática com recursos visuais e auditivos.
+Aplicativo web para ensino e prática de escalas musicais em diferentes instrumentos.
 
-Funcionalidades principais:
-Escolha do Instrumento:
+## 🚀 Como Executar o Projeto
 
-Violão
+### Pré-requisitos
 
-Guitarra
+- Node.js (versão 18 ou superior)
+- npm (gerenciador de pacotes do Node.js)
 
-Baixo
+### Instalação
 
-Teclado/Piano (visualização de teclas)
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/gerador-escalas-musicas.git
+cd gerador-escalas-musicas
+```
 
-Tipos de Escalas Musicais Disponíveis:
+2. Instale as dependências:
+```bash
+npm install
+```
 
-Maiores
+### Executando o Projeto
 
-Menores (naturais, harmônicas, melódicas)
+Para iniciar o servidor de desenvolvimento:
 
-Pentatônicas
+```bash
+npx vite
+```
 
-Blues
+O aplicativo estará disponível em: [http://localhost:5173/](http://localhost:5173/)
 
-Modos Gregos (dórico, frígio, lídio, mixolídio, etc.)
+### Comandos Disponíveis
 
-Cromática
+- `npx vite` - Inicia o servidor de desenvolvimento
+- `npm run build` - Gera a versão de produção
+- `npm run lint` - Executa a verificação de código
+- `npm run format` - Formata o código com Prettier
+- `npm test` - Executa os testes
+- `npm run test:coverage` - Executa os testes e gera relatório de cobertura
 
-Personalizadas (opcional)
+## 📋 Funcionalidades
 
-Modo de Exibição:
+- Seleção de instrumentos (violão, guitarra, baixo, teclado)
+- Visualização de escalas musicais
+- Metrônomo para prática
+- Configurações personalizáveis
+- Temas claro/escuro
+- Suporte a múltiplos idiomas
 
-Visualização do braço do instrumento (com marcação de notas ou graus)
+## 🛠️ Tecnologias Utilizadas
 
-Teclado virtual (com notas destacadas)
+- React
+- TypeScript
+- Redux Toolkit
+- React Router
+- Tailwind CSS
+- Vitest
 
-Diagramas ou tablaturas (opcional)
+## 📁 Estrutura do Projeto
 
-Exibição com/sem nomes das notas ou intervalos
+```
+src/
+├── assets/       # Recursos estáticos (imagens, sons)
+├── components/   # Componentes reutilizáveis
+├── pages/        # Páginas da aplicação
+├── store/        # Gerenciamento de estado (Redux)
+├── styles/       # Estilos globais
+├── types/        # Definições de tipos TypeScript
+└── utils/        # Funções utilitárias
+```
 
-Configurações e Personalização:
+## 🤝 Contribuindo
 
-Tom da escala (ex: C, D#, F#, etc.)
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Faça commit das suas alterações (`git commit -m 'Adiciona nova feature'`)
+4. Faça push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
 
-Afinação do instrumento (padrão ou customizada)
+## 📝 Licença
 
-Modo de treino (loop, crescente, aleatório)
-
-Dificuldade: Iniciante, Intermediário, Avançado
-
-Velocidade de execução
-
-Exemplos para Treino:
-
-Padrões melódicos e rítmicos
-
-Treinos de coordenação (subindo e descendo a escala)
-
-Exercícios com backing track (opcional)
-
-Metrônomo Integrado:
-
-Ajuste de BPM
-
-Marcação de compassos (2/4, 3/4, 4/4, 6/8 etc.)
-
-Opção de acentuação no tempo forte
-
-Sincronização com os exercícios
-
-Modo Interativo:
-
-O usuário pode clicar ou tocar nas notas para ouvir o som
-
-Feedback sonoro e visual (ex: acender a nota ao tocar)
-
-Histórico e progresso dos exercícios (opcional)
-
-Outros Recursos Adicionais (opcional):
-Modo noturno e claro
-
-Suporte a MIDI (para uso com teclados físicos)
-
-Exportar PDF dos diagramas
-
-Suporte a diferentes idiomas
-
-Perfil do usuário com progresso salvo
-
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
