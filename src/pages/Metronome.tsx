@@ -2,150 +2,192 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store';
 import { setMetronomeBpm, setMetronomeTimeSignature } from '../store/slices/settingsSlice';
+import { useTranslation } from 'react-i18next';
 
-const Metronome: React.FC = () => {
+interface MetronomeProps {
+  initialBPM?: number;
+  initialTimeSignature?: [number, number];
+}
+
+const Metronome: React.FC<MetronomeProps> = ({
+  initialBPM = 120,
+  initialTimeSignature = [4, 4],
+}) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { metronomeBpm, metronomeTimeSignature } = useSelector(
     (state: RootState) => state.settings
   );
   
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const intervalRef = useRef<number | null>(null);
+  const [volume, setVolume] = useState(0.5); // Volume de 0 a 1
+  const [currentBeat, setCurrentBeat] = useState(0);
+  const audioContext = useRef<AudioContext | null>(null);
+  const nextNoteTime = useRef<number>(0);
+  const timerID = useRef<number | null>(null);
 
   useEffect(() => {
-    // Inicializa o contexto de áudio
-    audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-
+    audioContext.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (timerID.current) {
+        window.clearTimeout(timerID.current);
       }
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
+      if (audioContext.current) {
+        audioContext.current.close();
       }
     };
   }, []);
 
   const playClick = () => {
-    if (!audioContextRef.current) return;
+    if (!audioContext.current) return;
 
-    const time = audioContextRef.current.currentTime;
-    
-    const oscillator = audioContextRef.current.createOscillator();
-    const gainNode = audioContextRef.current.createGain();
+    const osc = audioContext.current.createOscillator();
+    const gainNode = audioContext.current.createGain();
 
-    // Configura o oscilador
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContextRef.current.destination);
-    oscillator.frequency.setValueAtTime(1000, time);
+    osc.connect(gainNode);
+    gainNode.connect(audioContext.current.destination);
 
-    // Configura o envelope do som
-    gainNode.gain.setValueAtTime(0, time);
-    gainNode.gain.linearRampToValueAtTime(1, time + 0.001);
-    gainNode.gain.linearRampToValueAtTime(0, time + 0.05);
+    // Ajusta o som baseado no tempo
+    gainNode.gain.value = currentBeat === 0 ? 1 : 0.5;
+    osc.frequency.value = currentBeat === 0 ? 1000 : 800;
 
-    // Toca o som
-    oscillator.start(time);
-    oscillator.stop(time + 0.05);
+    osc.start();
+    osc.stop(audioContext.current.currentTime + 0.05);
   };
 
-  const startMetronome = () => {
-    if (!audioContextRef.current) return;
+  const scheduleNote = (beatNumber: number, time: number) => {
+    if (!audioContext.current) return;
 
-    // Garante que o contexto de áudio está ativo
-    if (audioContextRef.current.state === 'suspended') {
-      audioContextRef.current.resume();
-    }
+    // Agenda o próximo clique
+    nextNoteTime.current = time + (60.0 / metronomeBpm);
+    setCurrentBeat((beatNumber + 1) % metronomeTimeSignature[0]);
 
-    setIsPlaying(true);
-    playClick(); // Toca imediatamente ao iniciar
-
-    // Calcula o intervalo baseado no BPM
-    const interval = (60 / metronomeBpm) * 1000; // Converte BPM para milissegundos
-    intervalRef.current = window.setInterval(playClick, interval);
+    // Agenda o próximo clique
+    timerID.current = window.setTimeout(() => {
+      playClick();
+      scheduleNote(beatNumber + 1, nextNoteTime.current);
+    }, 25);
   };
 
-  const stopMetronome = () => {
-    setIsPlaying(false);
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
+  const toggleMetronome = () => {
+    if (!audioContext.current) return;
 
-  // Atualiza o intervalo quando o BPM muda
-  useEffect(() => {
     if (isPlaying) {
-      stopMetronome();
-      startMetronome();
+      // Para o metrônomo
+      if (timerID.current) {
+        window.clearTimeout(timerID.current);
+      }
+      setIsPlaying(false);
+    } else {
+      // Inicia o metrônomo
+      setIsPlaying(true);
+      nextNoteTime.current = audioContext.current.currentTime;
+      scheduleNote(0, nextNoteTime.current);
     }
-  }, [metronomeBpm]);
+  };
 
-  const handleBpmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newBpm = parseInt(e.target.value);
-    dispatch(setMetronomeBpm(newBpm));
+  const handleBPMChange = (newBPM: number) => {
+    dispatch(setMetronomeBpm(newBPM));
+    if (isPlaying) {
+      // Reinicia o metrônomo com o novo BPM
+      if (timerID.current) {
+        window.clearTimeout(timerID.current);
+      }
+      nextNoteTime.current = audioContext.current?.currentTime || 0;
+      scheduleNote(currentBeat, nextNoteTime.current);
+    }
   };
 
   const handleTimeSignatureChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setMetronomeTimeSignature(e.target.value));
+    setCurrentBeat(0);
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(parseFloat(e.target.value));
   };
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold text-primary-600">Metrônomo</h1>
-        <p className="mt-2 text-lg text-gray-600">
-          Ajuste o tempo e o compasso para praticar
-        </p>
-      </header>
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-2xl mx-auto">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            {t('metronome_title')}
+          </h1>
 
-      <main className="max-w-md mx-auto">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              BPM: {metronomeBpm}
-            </label>
-            <input
-              type="range"
-              min="40"
-              max="208"
-              value={metronomeBpm}
-              onChange={handleBpmChange}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
+          {/* Controles principais */}
+          <div className="flex flex-col items-center space-y-8">
+            {/* BPM Display e Controles */}
+            <div className="text-center">
+              <div className="text-6xl font-bold text-primary-600 mb-4">
+                {metronomeBpm}
+              </div>
+              <div className="text-gray-600 mb-4">
+                {t('bpm_label')}
+              </div>
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={() => handleBPMChange(metronomeBpm - 1)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                >
+                  -
+                </button>
+                <input
+                  type="range"
+                  min="40"
+                  max="208"
+                  value={metronomeBpm}
+                  onChange={(e) => handleBPMChange(Number(e.target.value))}
+                  className="w-64"
+                />
+                <button
+                  onClick={() => handleBPMChange(metronomeBpm + 1)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                >
+                  +
+                </button>
+              </div>
+            </div>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Compasso
-            </label>
-            <select
-              value={metronomeTimeSignature}
-              onChange={handleTimeSignatureChange}
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
-            >
-              <option value="2/4">2/4</option>
-              <option value="3/4">3/4</option>
-              <option value="4/4">4/4</option>
-              <option value="6/8">6/8</option>
-            </select>
-          </div>
+            {/* Compasso */}
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900 mb-2">
+                {metronomeTimeSignature[0]}/{metronomeTimeSignature[1]}
+              </div>
+              <div className="text-gray-600 mb-4">
+                {t('time_signature_label')}
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {[2, 3, 4, 6].map((num) => (
+                  <button
+                    key={num}
+                    onClick={() => dispatch(setMetronomeTimeSignature(`${num}/${metronomeTimeSignature[1]}`))}
+                    className={`p-2 rounded ${
+                      metronomeTimeSignature[0] === num
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 hover:bg-gray-200'
+                    }`}
+                  >
+                    {num}/{metronomeTimeSignature[1]}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-          <div className="flex justify-center">
+            {/* Botão Play/Pause */}
             <button
-              onClick={isPlaying ? stopMetronome : startMetronome}
-              className={`px-6 py-3 rounded-md text-white font-medium ${
+              onClick={toggleMetronome}
+              className={`p-4 rounded-full ${
                 isPlaying
-                  ? 'bg-red-500 hover:bg-red-600'
-                  : 'bg-primary-500 hover:bg-primary-600'
-              }`}
+                  ? 'bg-red-600 hover:bg-red-700'
+                  : 'bg-primary-600 hover:bg-primary-700'
+              } text-white text-xl`}
             >
-              {isPlaying ? 'Parar' : 'Iniciar'}
+              {isPlaying ? t('stop') : t('start')}
             </button>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };

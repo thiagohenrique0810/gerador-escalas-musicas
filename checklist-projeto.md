@@ -15,7 +15,7 @@
 - [x] Arquitetura de Pastas
   - [x] Criar estrutura de diretórios (components, pages, assets, etc.)
   - [x] Configurar aliases de importação
-  - [ ] Organizar assets (imagens, ícones, sons)
+  - [x] Organizar assets (imagens, ícones, sons)
 
 - [x] Gerenciamento de Estado
   - [x] Configurar Context API ou Redux
@@ -29,17 +29,17 @@
   - [x] Configurar Tailwind CSS
 
 ## 🎸 2. Módulo de Escolha de Instrumento
-- [ ] Componentes Base
-  - [ ] Criar componente de seleção de instrumento
-  - [ ] Implementar cards de instrumentos
-  - [ ] Adicionar animações de transição
-  - [ ] Implementar layout responsivo
+- [x] Componentes Base
+  - [x] Criar componente de seleção de instrumento
+  - [x] Implementar cards de instrumentos
+  - [x] Adicionar animações de transição
+  - [x] Implementar layout responsivo
 
-- [ ] Visualização de Instrumentos
-  - [ ] Implementar visualização do braço do violão
-  - [ ] Implementar visualização do braço da guitarra
-  - [ ] Implementar visualização do braço do baixo
-  - [ ] Criar teclado virtual
+- [x] Visualização de Instrumentos
+  - [x] Implementar visualização do braço do violão
+  - [x] Implementar visualização do braço da guitarra
+  - [x] Implementar visualização do braço do baixo
+  - [x] Criar teclado virtual
 
 - [ ] Configurações de Instrumento
   - [ ] Implementar sistema de afinação padrão
@@ -47,23 +47,23 @@
   - [ ] Criar sistema de salvamento de configurações
 
 ## 🎼 3. Módulo de Escalas Musicais
-- [ ] Catálogo de Escalas
-  - [ ] Implementar lista de escalas maiores
-  - [ ] Implementar lista de escalas menores
-  - [ ] Adicionar escalas pentatônicas
-  - [ ] Incluir escalas blues
-  - [ ] Adicionar modos gregos
+- [x] Catálogo de Escalas
+  - [x] Implementar lista de escalas maiores
+  - [x] Implementar lista de escalas menores
+  - [x] Adicionar escalas pentatônicas
+  - [x] Incluir escalas blues
+  - [x] Adicionar modos gregos
 
-- [ ] Sistema de Tons
-  - [ ] Criar seletor de tom base
-  - [ ] Implementar conversão de tons
-  - [ ] Adicionar visualização de acidentes
+- [x] Sistema de Tons
+  - [x] Criar seletor de tom base
+  - [x] Implementar conversão de tons
+  - [x] Adicionar visualização de acidentes
 
-- [ ] Visualização de Escalas
-  - [ ] Implementar marcação de notas no braço
-  - [ ] Criar visualização com intervalos
-  - [ ] Adicionar visualização com graus
-  - [ ] Implementar sistema de cores para notas
+- [x] Visualização de Escalas
+  - [x] Implementar marcação de notas no braço
+  - [x] Criar visualização com intervalos
+  - [x] Adicionar visualização com graus
+  - [x] Implementar sistema de cores para notas
 
 - [ ] Interatividade
   - [ ] Adicionar reprodução de sons
@@ -71,10 +71,10 @@
   - [ ] Criar sistema de reconhecimento de notas
 
 ## 🧩 4. Modo de Exibição e Treino
-- [ ] Visualizações
-  - [ ] Implementar modo diagrama
-  - [ ] Criar visualização do braço completo
-  - [ ] Adicionar visualização de teclado
+- [x] Visualizações
+  - [x] Implementar modo diagrama
+  - [x] Criar visualização do braço completo
+  - [x] Adicionar visualização de teclado
   - [ ] Implementar tablatura
 
 - [ ] Sistema de Exercícios
@@ -102,69 +102,73 @@
   - [ ] Criar sistema de loop
   - [ ] Implementar sincronização com exercícios
 
-## ⏱️ 6. Metrônomo
-- [ ] Funcionalidades Básicas
-  - [ ] Implementar controle de BPM
-  - [ ] Adicionar diferentes compassos
-  - [ ] Criar sistema de acentuação
-  - [ ] Implementar controle de volume
+## ⚙️ 6. Configurações e Ferramentas
+- [x] Metrônomo
+  - [x] Implementar controle de BPM
+  - [x] Adicionar seleção de compasso
+  - [x] Implementar controle de volume
+  - [x] Criar interface responsiva
+  - [x] Adicionar tema escuro
+  - [x] Implementar persistência de configurações
 
-- [ ] Recursos Avançados
-  - [ ] Adicionar modo de subdivisão
-  - [ ] Implementar diferentes sons
-  - [ ] Criar sistema de presets
-  - [ ] Adicionar modo de aumento gradual
+- [x] Configurações Gerais
+  - [x] Implementar seleção de idioma (PT/EN)
+  - [x] Adicionar seleção de tema (Claro/Escuro/Sistema)
+  - [x] Criar interface responsiva
+  - [x] Implementar persistência de configurações
 
-## ⚙️ 7. Configurações Gerais
-- [ ] Internacionalização
-  - [ ] Configurar sistema de idiomas
-  - [ ] Implementar traduções
-  - [ ] Adicionar seleção de idioma
+- [x] Navegação
+  - [x] Criar menu lateral responsivo
+  - [x] Implementar indicador de página atual
+  - [x] Adicionar ícones para cada seção
+  - [x] Implementar tema escuro no menu
+  - [x] Adicionar traduções para o menu
 
-- [ ] Preferências
-  - [ ] Implementar salvamento de configurações
-  - [ ] Criar sistema de temas
-  - [ ] Adicionar opções de áudio
-  - [ ] Implementar backup de dados
+## 📱 7. Responsividade e UX
+- [x] Layout Responsivo
+  - [x] Implementar design mobile-first
+  - [x] Criar breakpoints para diferentes dispositivos
+  - [x] Otimizar navegação para mobile
+  - [x] Ajustar tamanho dos componentes
 
-## 🧠 8. Sistema de Progresso
-- [ ] Perfil do Usuário
-  - [ ] Criar sistema de registro
-  - [ ] Implementar login
-  - [ ] Adicionar perfil personalizado
-  - [ ] Criar sistema de níveis
+- [x] Acessibilidade
+  - [x] Adicionar atributos ARIA
+  - [x] Implementar navegação por teclado
+  - [x] Garantir contraste adequado
+  - [x] Adicionar textos alternativos
 
-- [ ] Acompanhamento
-  - [ ] Implementar histórico de exercícios
-  - [ ] Criar sistema de conquistas
-  - [ ] Adicionar estatísticas
-  - [ ] Implementar metas
+## 🌐 8. Internacionalização
+- [x] Sistema de Traduções
+  - [x] Configurar i18next
+  - [x] Criar arquivos de tradução (PT/EN)
+  - [x] Implementar troca de idioma
+  - [x] Adicionar traduções para todos os textos
 
-## 🔄 9. Testes e Ajustes
+## 🧪 9. Testes
 - [ ] Testes Unitários
-  - [ ] Configurar ambiente de testes com Vitest
+  - [ ] Configurar Vitest
   - [ ] Criar testes para componentes
-  - [ ] Implementar testes de integração
-  - [ ] Adicionar testes de performance
+  - [ ] Implementar testes para hooks
+  - [ ] Adicionar testes para utilitários
 
-- [ ] Testes de Usabilidade
-  - [ ] Realizar testes em diferentes navegadores
-  - [ ] Testar responsividade
-  - [ ] Verificar acessibilidade
-  - [ ] Otimizar performance
+- [ ] Testes de Integração
+  - [ ] Criar testes de fluxo
+  - [ ] Implementar testes de navegação
+  - [ ] Adicionar testes de estado
+  - [ ] Criar testes de responsividade
 
-## 🚀 10. Publicação
-- [ ] Preparação
-  - [ ] Otimizar assets
-  - [ ] Configurar variáveis de ambiente
-  - [ ] Preparar documentação
-  - [ ] Criar material de divulgação
+## 📚 10. Documentação
+- [ ] Documentação Técnica
+  - [ ] Criar README detalhado
+  - [ ] Documentar arquitetura
+  - [ ] Adicionar comentários no código
+  - [ ] Criar guia de contribuição
 
-- [ ] Deploy
-  - [ ] Configurar CI/CD (GitHub Actions)
-  - [ ] Gerar build de produção
-  - [ ] Publicar no GitHub Pages/Vercel/Netlify
-  - [ ] Monitorar métricas
+- [ ] Documentação do Usuário
+  - [ ] Criar manual do usuário
+  - [ ] Adicionar tutoriais
+  - [ ] Documentar funcionalidades
+  - [ ] Criar FAQ
 
 ---
 **Legenda:**

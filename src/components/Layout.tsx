@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -7,6 +9,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isActive = (path: string) => {
@@ -14,11 +17,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const menuItems = [
-    { path: '/', label: 'Início', icon: '🏠' },
-    { path: '/instrumentos', label: 'Instrumentos', icon: '🎸' },
-    { path: '/escalas', label: 'Escalas', icon: '🎼' },
-    { path: '/metronomo', label: 'Metrônomo', icon: '🎵' },
-    { path: '/configuracoes', label: 'Configurações', icon: '⚙️' },
+    { path: '/', label: t('nav_home'), icon: '🏠' },
+    { path: '/instrumentos', label: t('nav_instruments'), icon: '🎸' },
+    { path: '/escalas', label: t('nav_scales'), icon: '🎼' },
+    { path: '/metronomo', label: t('nav_metronome'), icon: '🎵' },
+    { path: '/configuracoes', label: t('nav_settings'), icon: '⚙️' },
+    { path: '/perfil', label: t('nav_profile'), icon: '👤' },
   ];
 
   return (
@@ -52,6 +56,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <span>{item.label}</span>
                 </Link>
               ))}
+              <div className="ml-4 border-l border-gray-200 pl-4">
+                <LanguageSelector />
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -112,6 +119,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <span>{item.label}</span>
                 </Link>
               ))}
+              <div className="px-3 py-2">
+                <LanguageSelector />
+              </div>
             </div>
           </div>
         </nav>

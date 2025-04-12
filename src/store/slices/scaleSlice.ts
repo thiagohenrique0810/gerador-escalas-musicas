@@ -1,35 +1,41 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export type ScaleType = 'maior' | 'menor' | 'pentatonica' | 'blues' | 'modo';
-
-export interface Scale {
-  type: ScaleType;
-  root: string;
-  notes: string[];
-}
-
-interface ScaleState {
-  selectedScale: Scale | null;
-  availableScales: Scale[];
-}
+import { Note, Scale, ScaleState, NOTES, SCALE_INTERVALS, calculateScaleNotes } from '../../types/scales';
 
 const initialState: ScaleState = {
+  selectedTonic: 'C',
   selectedScale: null,
-  availableScales: [],
+  availableScales: Object.entries(SCALE_INTERVALS).map(([type, intervals]) => ({
+    type: type as Scale['type'],
+    name: `scale_${type}`,
+    description: `scale_${type}_desc`,
+    intervals,
+    notes: calculateScaleNotes('C', intervals),
+  })),
 };
 
 const scaleSlice = createSlice({
   name: 'scale',
   initialState,
   reducers: {
-    setSelectedScale: (state, action: PayloadAction<Scale>) => {
-      state.selectedScale = action.payload;
+    setSelectedTonic: (state, action: PayloadAction<Note>) => {
+      state.selectedTonic = action.payload;
+      if (state.selectedScale) {
+        const updatedScale = { ...state.selectedScale };
+        updatedScale.notes = calculateScaleNotes(action.payload, updatedScale.intervals);
+        state.selectedScale = updatedScale;
+      }
     },
-    setAvailableScales: (state, action: PayloadAction<Scale[]>) => {
-      state.availableScales = action.payload;
+    setSelectedScale: (state, action: PayloadAction<Scale | null>) => {
+      if (action.payload) {
+        const updatedScale = { ...action.payload };
+        updatedScale.notes = calculateScaleNotes(state.selectedTonic, updatedScale.intervals);
+        state.selectedScale = updatedScale;
+      } else {
+        state.selectedScale = null;
+      }
     },
   },
 });
 
-export const { setSelectedScale, setAvailableScales } = scaleSlice.actions;
+export const { setSelectedTonic, setSelectedScale } = scaleSlice.actions;
 export default scaleSlice.reducer; 

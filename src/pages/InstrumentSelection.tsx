@@ -1,40 +1,40 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setInstrument } from '../store/slices/instrumentSlice';
-import type { Instrument } from '../store/slices/instrumentSlice';
-import { GiGuitarHead, GiPianoKeys, GiGuitar } from 'react-icons/gi';
+import { useTranslation } from 'react-i18next';
+import { setInstrument, Instrument } from '../store/slices/instrumentSlice';
+import { GiGuitar, GiPianoKeys } from 'react-icons/gi';
 
 interface InstrumentCard {
   id: Instrument;
-  name: string;
-  description: string;
+  translationKey: string;
+  descriptionKey: string;
   icon: React.ReactNode;
 }
 
 const instruments: InstrumentCard[] = [
   {
     id: 'violao',
-    name: 'Violão',
-    description: 'Aprenda escalas no violão clássico',
-    icon: <GiGuitarHead className="w-full h-full" />,
+    translationKey: 'instrument_acoustic',
+    descriptionKey: 'instrument_acoustic_desc',
+    icon: <GiGuitar className="w-full h-full" />,
   },
   {
     id: 'guitarra',
-    name: 'Guitarra',
-    description: 'Pratique escalas na guitarra elétrica',
+    translationKey: 'instrument_guitar',
+    descriptionKey: 'instrument_guitar_desc',
     icon: <GiGuitar className="w-full h-full" />,
   },
   {
     id: 'baixo',
-    name: 'Baixo',
-    description: 'Explore escalas no baixo elétrico',
+    translationKey: 'instrument_bass',
+    descriptionKey: 'instrument_bass_desc',
     icon: <GiGuitar className="w-full h-full transform rotate-180" />,
   },
   {
     id: 'teclado',
-    name: 'Teclado',
-    description: 'Estude escalas no teclado/piano',
+    translationKey: 'instrument_keyboard',
+    descriptionKey: 'instrument_keyboard_desc',
     icon: <GiPianoKeys className="w-full h-full" />,
   },
 ];
@@ -42,6 +42,7 @@ const instruments: InstrumentCard[] = [
 const InstrumentSelection: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleInstrumentSelect = (instrument: Instrument) => {
     dispatch(setInstrument(instrument));
@@ -52,10 +53,10 @@ const InstrumentSelection: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
-          Escolha seu Instrumento
+          {t('select_instrument')}
         </h1>
         <p className="mt-4 text-lg text-gray-600">
-          Selecione o instrumento que você deseja praticar
+          {t('select_instrument_desc')}
         </p>
       </header>
 
@@ -73,8 +74,8 @@ const InstrumentSelection: React.FC = () => {
                           transition-colors duration-300">
               {instrument.icon}
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900">{instrument.name}</h2>
-            <p className="mt-2 text-gray-600">{instrument.description}</p>
+            <h2 className="text-2xl font-semibold text-gray-900">{t(instrument.translationKey)}</h2>
+            <p className="mt-2 text-gray-600">{t(instrument.descriptionKey)}</p>
           </button>
         ))}
       </main>
