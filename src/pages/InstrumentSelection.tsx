@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setInstrument } from '@store/slices/instrumentSlice';
-import type { Instrument } from '@store/slices/instrumentSlice';
+import { setInstrument } from '../store/slices/instrumentSlice';
+import type { Instrument } from '../store/slices/instrumentSlice';
+import { GiGuitarHead, GiPianoKeys, GiGuitar } from 'react-icons/gi';
 
 interface InstrumentCard {
   id: Instrument;
@@ -16,112 +17,25 @@ const instruments: InstrumentCard[] = [
     id: 'violao',
     name: 'Violão',
     description: 'Aprenda escalas no violão clássico',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path
-          d="M12 2C9.5 2 7 3 7 6.5L6 10c-.5 1.5-.5 2.5 0 4l1 3.5c.5 1.5 2 2.5 3.5 2.5h3c1.5 0 3-1 3.5-2.5l1-3.5c.5-1.5.5-2.5 0-4L17 6.5C17 3 14.5 2 12 2z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M12 6v12M9.5 8.5h5M9.5 11.5h5M9.5 14.5h5"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="12" cy="18" r="1" fill="currentColor" />
-      </svg>
-    ),
+    icon: <GiGuitarHead className="w-full h-full" />,
   },
   {
     id: 'guitarra',
     name: 'Guitarra',
     description: 'Pratique escalas na guitarra elétrica',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path
-          d="M12 2L9 5l-2 3L5 11l1 4c.5 2 2 3 4 3h4c2 0 3.5-1 4-3l1-4-2-3-2-3-3-3z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M12 7v10M9 9.5h6M9 12.5h6M9 15.5h6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="8" cy="19" r="1" fill="currentColor" />
-        <circle cx="16" cy="19" r="1" fill="currentColor" />
-        <path
-          d="M7 5.5l10 1"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <GiGuitar className="w-full h-full" />,
   },
   {
     id: 'baixo',
     name: 'Baixo',
     description: 'Explore escalas no baixo elétrico',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path
-          d="M12 2L8 5l-2 4-1 3 1 4c.5 2 2 3.5 4 3.5h4c2 0 3.5-1.5 4-3.5l1-4-1-3-2-4-4-3z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M12 7v10M8 10h8M8 13h8M8 16h8"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="9" cy="20" r="1" fill="currentColor" />
-        <circle cx="15" cy="20" r="1" fill="currentColor" />
-        <path
-          d="M6 6l12 1"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <GiGuitar className="w-full h-full transform rotate-180" />,
   },
   {
     id: 'teclado',
     name: 'Teclado',
     description: 'Estude escalas no teclado/piano',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path
-          d="M3 6h18v12H3V6z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M6 6v8h2V6h2v8h2V6h2v8h2V6h2v8h2V6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M4 14h16v4H4v-4z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M7.5 6v4h1V6M11.5 6v4h1V6M15.5 6v4h1V6"
-          fill="currentColor"
-        />
-      </svg>
-    ),
+    icon: <GiPianoKeys className="w-full h-full" />,
   },
 ];
 
